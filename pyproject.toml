@@ -1,6 +1,6 @@
 [project]
 name = "openpi-client"
-version = "0.1.0"
+version = "0.1.1"
 description = "Runs openpi policy interface by websocket connection to a server."
 readme = "README.md"
 requires-python = ">=3.7"
@@ -9,7 +9,6 @@ dependencies = [
     "msgpack>=1.0.5",
     "numpy>=1.22.4,<2.0.0",
     "pillow>=9.0.0",
-    "tree>=0.2.4",
     "websockets>=11.0",
 ]
 
