@@ -31,17 +31,12 @@ class WebsocketClientPolicy(_base_policy.BasePolicy):
 
     def _wait_for_server(self) -> Tuple[websockets.sync.client.ClientConnection, Dict]:
         logging.info(f"Waiting for server at {self._uri}...")
-        while True:
-            try:
-                headers = {"Authorization": f"Api-Key {self._api_key}"} if self._api_key else None
-                conn = websockets.sync.client.connect(
-                    self._uri, compression=None, max_size=None, additional_headers=headers
-                )
-                metadata = msgpack_numpy.unpackb(conn.recv())
-                return conn, metadata
-            except ConnectionRefusedError:
-                logging.info("Still waiting for server...")
-                time.sleep(5)
+        headers = {"Authorization": f"Api-Key {self._api_key}"} if self._api_key else None
+        conn = websockets.sync.client.connect(
+            self._uri, compression=None, max_size=None, additional_headers=headers
+        )
+        metadata = msgpack_numpy.unpackb(conn.recv())
+        return conn, metadata
 
     @override
     def infer(self, obs: Dict) -> Dict:  # noqa: UP006
